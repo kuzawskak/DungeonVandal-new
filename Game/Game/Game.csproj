@@ -1,0 +1,361 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project DefaultTargets="Build" ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <ProjectGuid>{2C22C096-EFEA-428D-89EE-27457D8A3AD0}</ProjectGuid>
+    <ProjectTypeGuids>{6D335F3A-9D43-41b4-9D22-F6F17C4BE596};{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}</ProjectTypeGuids>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">x86</Platform>
+    <OutputType>WinExe</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Game</RootNamespace>
+    <AssemblyName>Game</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <TargetFrameworkProfile>Client</TargetFrameworkProfile>
+    <XnaFrameworkVersion>v4.0</XnaFrameworkVersion>
+    <XnaPlatform>Windows</XnaPlatform>
+    <XnaProfile>Reach</XnaProfile>
+    <XnaCrossPlatformGroupID>56d4962e-b491-46c3-b30d-76c574cd9139</XnaCrossPlatformGroupID>
+    <XnaOutputType>Game</XnaOutputType>
+    <ApplicationIcon>Game.ico</ApplicationIcon>
+    <Thumbnail>GameThumbnail.png</Thumbnail>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>1</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <PublishWizardCompleted>true</PublishWizardCompleted>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|x86' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>bin\x86\Debug</OutputPath>
+    <DefineConstants>DEBUG;TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>false</XnaCompressContent>
+    <DocumentationFile>bin\x86\Debug\Game.XML</DocumentationFile>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|x86' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\x86\Release</OutputPath>
+    <DefineConstants>TRACE;WINDOWS</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+    <NoStdLib>true</NoStdLib>
+    <UseVSHostingProcess>false</UseVSHostingProcess>
+    <PlatformTarget>x86</PlatformTarget>
+    <XnaCompressContent>true</XnaCompressContent>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestCertificateThumbprint>DAE48859CA7DF2D34A620B027F3CEA4FB69E0F18</ManifestCertificateThumbprint>
+  </PropertyGroup>
+  <PropertyGroup>
+    <ManifestKeyFile>Game_TemporaryKey.pfx</ManifestKeyFile>
+  </PropertyGroup>
+  <PropertyGroup>
+    <GenerateManifests>true</GenerateManifests>
+  </PropertyGroup>
+  <PropertyGroup>
+    <SignManifests>true</SignManifests>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="Microsoft.Xna.Framework, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Game, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Graphics, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.GamerServices, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=x86" />
+    <Reference Include="Microsoft.Xna.Framework.Storage, Version=4.0.0.0, Culture=neutral, PublicKeyToken=842cf8be1de50553, processorArchitecture=MSIL" />
+    <Reference Include="mscorlib" />
+    <Reference Include="PresentationCore" />
+    <Reference Include="System" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
+    <Reference Include="System.Xml" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Net" />
+    <Reference Include="WindowsBase" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Characters\NamespaceDoc.cs" />
+    <Compile Include="DestroyableObjects\CelMisji.cs" />
+    <Compile Include="DestroyableObjects\NamespaceDoc.cs" />
+    <Compile Include="Features\NamespaceDoc.cs" />
+    <Compile Include="Map\NamespaceDoc.cs" />
+    <Compile Include="Map\RandomOperator.cs" />
+    <Compile Include="MenuForm.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="MenuForm.Designer.cs">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+    </Compile>
+    <Compile Include="NamespaceDoc.cs" />
+    <Compile Include="NonDestroyableObjects\NamespaceDoc.cs" />
+    <Compile Include="NonDestroyableObjects\Puste.cs" />
+    <Compile Include="Features\Ciezki.cs" />
+    <Compile Include="Features\Eksplodujacy.cs" />
+    <Compile Include="Features\Eteryczny.cs" />
+    <Compile Include="Features\Kruchy.cs" />
+    <Compile Include="Features\Niestabilny.cs" />
+    <Compile Include="Features\Przesuwalny.cs" />
+    <Compile Include="Features\ReagujeNa Grawitacje.cs" />
+    <Compile Include="Features\Skazony.cs" />
+    <Compile Include="Features\Slaby.cs" />
+    <Compile Include="Characters\Blob.cs" />
+    <Compile Include="Characters\ChodzacaBomba.cs" />
+    <Compile Include="Characters\Enemy.cs" />
+    <Compile Include="Characters\GigantycznySzczur.cs" />
+    <Compile Include="Characters\Goblin.cs" />
+    <Compile Include="Characters\Vandal.cs" />
+    <Compile Include="DestroyableObjects\Ameba.cs" />
+    <Compile Include="DestroyableObjects\Kamien.cs" />
+    <Compile Include="DestroyableObjects\LekkiMur.cs" />
+    <Compile Include="DestroyableObjects\Ziemia.cs" />
+    <Compile Include="Features\Zniszczalny.cs" />
+    <Compile Include="Map\Map.cs" />
+    <Compile Include="Map\MapObject.cs" />
+    <Compile Include="NonDestroyableObjects\CiezkiMur.cs" />
+    <Compile Include="NonDestroyableObjects\MagicznyMur.cs" />
+    <Compile Include="NonDestroyableObjects\MarmurowyKamien.cs" />
+    <Compile Include="NonDestroyableObjects\RadioaktywnyGlaz.cs" />
+    <Compile Include="Panels\BestScoresPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\BestScoresPanel.Designer.cs">
+      <DependentUpon>BestScoresPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\ChooseLevelPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\ChooseLevelPanel.Designer.cs">
+      <DependentUpon>ChooseLevelPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\GameOver.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\GameOver.Designer.cs">
+      <DependentUpon>GameOver.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\HelpPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\HelpPanel.Designer.cs">
+      <DependentUpon>HelpPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\KeyboardSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\KeyboardSettingsPanel.Designer.cs">
+      <DependentUpon>KeyboardSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\LoadGamePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\LoadGamePanel.Designer.cs">
+      <DependentUpon>LoadGamePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\MainPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\MainPanel.Designer.cs">
+      <DependentUpon>MainPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\NamespaceDoc.cs" />
+    <Compile Include="Panels\PausePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PausePanel.Designer.cs">
+      <DependentUpon>PausePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\PredefinedSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\PredefinedSettingsPanel.Designer.cs">
+      <DependentUpon>PredefinedSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\SettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\SettingsPanel.Designer.cs">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\AudioSettingsPanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\AudioSettingsPanel.Designer.cs">
+      <DependentUpon>AudioSettingsPanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\Win.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\Win.Designer.cs">
+      <DependentUpon>Win.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Panels\XnaGamePanel.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Panels\XnaGamePanel.Designer.cs">
+      <DependentUpon>XnaGamePanel.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Resources.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Resources.resx</DependentUpon>
+    </Compile>
+    <Compile Include="Settings.Designer.cs">
+      <DependentUpon>Settings.settings</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+    </Compile>
+    <Compile Include="Settings\AudioSettings.cs" />
+    <Compile Include="Settings\KeySettings.cs" />
+    <Compile Include="Player.cs" />
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Program.cs" />
+    <Compile Include="Game.cs" />
+    <Compile Include="Settings\NamespaceDoc.cs" />
+    <Compile Include="Weapon\Dynamit.cs" />
+    <Compile Include="Weapon\NamespaceDoc.cs" />
+    <Compile Include="Weapon\PekDynamitow.cs" />
+    <Compile Include="Weapon\PoleSilowe.cs" />
+    <Compile Include="Weapon\Racket.cs" />
+    <Compile Include="Weapon\Weapon.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Game.ico" />
+    <Content Include="GameThumbnail.png">
+      <XnaPlatformSpecific>true</XnaPlatformSpecific>
+    </Content>
+    <Content Include="Resources\slide1.jpg" />
+    <Content Include="Resources\slide2.jpg" />
+    <Content Include="Resources\slide3.jpg" />
+    <Content Include="Resources\slide4.jpg" />
+    <Content Include="Resources\slide41.jpg" />
+    <Content Include="Resources\slide42.jpg" />
+    <Content Include="Resources\slide5.jpg" />
+    <None Include="Game_TemporaryKey.pfx" />
+    <None Include="Resources\pauza.jpg" />
+    <None Include="Resources\title1.png" />
+    <None Include="Resources\racket1.png" />
+    <None Include="Resources\dynamite1.png" />
+    <None Include="Resources\title.png" />
+    <None Include="Resources\racket.png" />
+    <None Include="Resources\dynamite.png" />
+    <None Include="Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\..\XMLManager\XMLManager.csproj">
+      <Project>{3626CBF1-255C-4C1F-B95A-3C30CB3AFDDD}</Project>
+      <Name>XMLManager</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\GameContent\GameContent.contentproj">
+      <Name>GameContent</Name>
+      <XnaReferenceType>Content</XnaReferenceType>
+    </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0,Profile=Client">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 Client Profile %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Xna.Framework.4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft XNA Framework Redistributable 4.0</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="MenuForm.resx">
+      <DependentUpon>MenuForm.cs</DependentUpon>
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\AudioSettingsPanel.resx">
+      <DependentUpon>AudioSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\BestScoresPanel.resx">
+      <DependentUpon>BestScoresPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\ChooseLevelPanel.resx">
+      <DependentUpon>ChooseLevelPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\GameOver.resx">
+      <DependentUpon>GameOver.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\HelpPanel.resx">
+      <DependentUpon>HelpPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\KeyboardSettingsPanel.resx">
+      <DependentUpon>KeyboardSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\LoadGamePanel.resx">
+      <DependentUpon>LoadGamePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\MainPanel.resx">
+      <DependentUpon>MainPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PausePanel.resx">
+      <DependentUpon>PausePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\PredefinedSettingsPanel.resx">
+      <DependentUpon>PredefinedSettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\SettingsPanel.resx">
+      <DependentUpon>SettingsPanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\Win.resx">
+      <DependentUpon>Win.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Panels\XnaGamePanel.resx">
+      <DependentUpon>XnaGamePanel.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Resources.resx">
+      <Generator>ResXFileCodeGenerator</Generator>
+      <SubType>Designer</SubType>
+      <LastGenOutput>Resources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+  </ItemGroup>
+  <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
+  <Import Project="$(MSBuildExtensionsPath)\Microsoft\XNA Game Studio\Microsoft.Xna.GameStudio.targets" />
+  <!--
+      To modify your build process, add your task inside one of the targets below and uncomment it. 
+      Other similar extension points exist, see Microsoft.Common.targets.
+      <Target Name="BeforeBuild">
+      </Target>
+      <Target Name="AfterBuild">
+      </Target>
+    -->
+</Project>
