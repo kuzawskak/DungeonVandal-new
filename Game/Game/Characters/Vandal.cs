@@ -167,7 +167,7 @@ namespace Game.Characters
 
                 Map.MapObject racket = new Weapon.Racket(content, collision_obj.rectangle, collision_obj.x, collision_obj.y, view_direction);
                 game_map.setObject(collision_obj.x, collision_obj.y, racket);
-                game_map.addPlayersRacket(-1);
+               
                 SoundEffect fire_racket_effect = content.Load<SoundEffect>("Audio\\fire_racket");
                 if (!game_map.player.AudioSettings.IsMuted)
                 {

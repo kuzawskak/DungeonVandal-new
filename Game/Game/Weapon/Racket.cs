@@ -142,6 +142,7 @@ namespace Game.Weapon
                         map.setObject(collision_x, collision_y, new NonDestroyableObjects.Puste(content, new Rectangle((collision_x) * rectangle.Width, collision_y * rectangle.Height, rectangle.Width, rectangle.Height), collision_x, collision_y));
                     }
 
+                    map.addPlayersRacket(-1);
                     //explosion
                     SoundEffect explosion_sound = content.Load<SoundEffect>("Audio\\explosion_sound");
                     if (!map.player.AudioSettings.IsMuted)
@@ -152,8 +153,8 @@ namespace Game.Weapon
                     int vandal_x = map.GetVandal().x;
                     int vandal_y = map.GetVandal().y;
 
-                    if (x - 1 != vandal_x && y != vandal_y && map.getObject(x - 1, y) is Zniszczalny) (map.getObject(x - 1, y) as Zniszczalny).OnDestroy(map);
-
+                    if (x - 1 != vandal_x && y != vandal_y && map.getObject(x - 1, y) is Zniszczalny) 
+                        (map.getObject(x - 1, y) as Zniszczalny).OnDestroy(map);
                     if (map.getObject(x - 1, y).GetType().IsSubclassOf(typeof(Characters.Enemy)))
                     {
                         (map.getObject(x - 1, y) as Characters.Enemy).Die(map);
@@ -215,8 +216,12 @@ namespace Game.Weapon
                         (map.getObject(x + 1, y - 1) as Characters.Enemy).Die(map);
                     }
 
-
+                    //miejsce w ktorym rakieta sie zatrzymala
                     map.setObject(x, y, new NonDestroyableObjects.Puste(content, this.rectangle, x, y));
+
+                    //obiekt na ktorym rakieta sie zatrzymala
+                    if(map.getObject(collision_x,collision_y) is Zniszczalny || map.getObject(collision_x,collision_x).GetType().IsSubclassOf(typeof(Characters.Enemy)))
+                    map.setObject(collision_x, collision_y, new NonDestroyableObjects.Puste(content, this.rectangle,collision_x, collision_y));
                 }
                 else
                 {
