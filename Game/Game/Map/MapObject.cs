@@ -21,6 +21,11 @@ namespace Game.Map
         /// Prostokata reprezentujacy obiekt na mapie
         /// </summary>
         public Rectangle rectangle;
+
+        /// <summary>
+        /// Prostokat aktualnej klatki animacji w przypadku animowanej tekstury
+        /// </summary>
+        public Rectangle? src_rectangle;
         /// <summary>
         /// Xna content
         /// </summary>

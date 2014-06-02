@@ -13,7 +13,7 @@ namespace Game.Weapon
 
     /// <summary>
     /// Klasa pola siłowego - typ broni , który po zebraniu przez Vandala uruchamia jego nieśmiertelność
-    /// (100% odporność na ataki wrogów) na określony czas
+    /// (100% odporność na ataki wrogów) na czas 10 sekund
     /// </summary>
     class PoleSilowe :  Weapon, Zniszczalny
     {

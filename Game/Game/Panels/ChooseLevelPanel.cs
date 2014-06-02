@@ -194,6 +194,11 @@ namespace Game.Panels
             ((MenuForm)Parent).player.DifficultyLevel = comboBox1.SelectedIndex + 1;
         }
 
+        private void Intelligence_CheckedChanged(object sender, EventArgs e)
+        {
+            ((MenuForm)Parent).player.CheckIntelligence = Intelligence.Checked;
+        }
+
 
 
 

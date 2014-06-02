@@ -24,6 +24,8 @@ namespace Game.DestroyableObjects
         /// </summary>
         private string asset_name;
 
+        private bool deactivated = false;
+
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -34,8 +36,9 @@ namespace Game.DestroyableObjects
         /// <param name="game_level">poziom gry</param>
         public CelMisji(ContentManager content, Rectangle rectangle, int x, int y,int game_level):base(content,rectangle,x,y)
         {
+            deactivated = false;
             TypeTag = Map.ElementType.CELMISJI;
-            this.IsAccesible = true;
+            this.IsAccesible = false;// true;
             switch (game_level)
             {
                 case 1:
@@ -69,7 +72,14 @@ namespace Game.DestroyableObjects
         public void OnDestroy(Map.Map map)
         {
             map.AddPlayersPoints(points);
-            map.vandal.level_up = true;
+            if (!deactivated)
+            {
+                deactivated = true;
+                asset_name = "Textures\\deactivated_goal";
+                texture = content.Load<Texture2D>(asset_name);
+            }
+            else
+                map.vandal.level_up = true;
         }
     }
 }

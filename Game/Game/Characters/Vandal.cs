@@ -75,18 +75,18 @@ namespace Game.Characters
 
 
         /// <summary>
-        /// Ustawienie niesmertelnosci po podniesieniu Pola Silowego
+        /// Ustawienie niesmertelnosci po podniesieniu Pola Silowego (na 10 sekund)
         /// </summary>
         public void setImmortal()
         {
             is_immortal = true;
-            immortal_timer = new System.Timers.Timer(5000);
+            immortal_timer = new System.Timers.Timer(10000);
             immortal_timer.Elapsed += new ElapsedEventHandler(OnTimedEvent);
             immortal_timer.Start();
         }
 
         /// <summary>
-        /// Utrata niesmiertelnosci po czasie 5 sekund
+        /// Utrata niesmiertelnosci po czasie 10 sekund
         /// </summary>
         /// <param name="source"></param>
         /// <param name="e"></param>
@@ -212,7 +212,7 @@ namespace Game.Characters
                     asset_name = "Textures\\vandal_right";
                     break;
                 default:
-                    asset_name = "Textures\\vandal_right";
+              
                     break;
 
             }

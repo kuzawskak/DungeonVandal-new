@@ -6,14 +6,19 @@ using Microsoft.Xna.Framework.Content;
 using Microsoft.Xna.Framework;
 using Microsoft.Xna.Framework.Graphics;
 
+
 namespace Game.Characters
 {
+   
     /// <summary>
     /// Klasa przeciwnika poruszajacego sie 2 razy szybciej niz Vandal, 
     /// gdy trafi na jakis obiekt wybucha
     /// </summary>
     class ChodzacaBomba : Enemy
     {
+
+        private bool explode = false;
+        private bool die = false;
         /// <summary>
         /// Czynnik losowy w ruchu
         /// </summary>
@@ -24,7 +29,12 @@ namespace Game.Characters
         /// </summary>
         const string asset_name = "Textures\\chodzaca_bomba";
 
+        /// <summary>
+        /// Scieżka do tektsury z animacja wybuchu 
+        /// </summary>
+        const string explosion_animation = "Textures\\explosion";
 
+        private int current_frame = 0;
         /// <summary>
         /// Konstruktor
         /// </summary>
@@ -81,38 +91,58 @@ namespace Game.Characters
                 int add_x = 0;
                 int add_y =0 ;
                 Move(map);
-                switch (current_direction)
+                if (!explode && !die)
                 {
-                    case Game.direction.down:
-                        add_x = 0;
-                        add_y = 1;
-                        collision_obj = map.getObject(x, y + 1);
-                        break;
-                    case Game.direction.left:
-                        add_x = -1;
-                        add_y = 0;
-                        collision_obj = map.getObject(x-1, y );
-                        break;
-                    case Game.direction.right:
-                        add_x = 1;
-                        add_y = 0;
-                        collision_obj = map.getObject(x+1, y );
-                        break;
-                    case Game.direction.up:
-                        add_x = 0;
-                        add_y = -1;
-                        collision_obj = map.getObject(x, y - 1);
-                        break;
-                    default:
-                        break;
+                    switch (current_direction)
+                    {
+                        case Game.direction.down:
+                            add_x = 0;
+                            add_y = 1;
+                            collision_obj = map.getObject(x, y + 1);
+                            break;
+                        case Game.direction.left:
+                            add_x = -1;
+                            add_y = 0;
+                            collision_obj = map.getObject(x - 1, y);
+                            break;
+                        case Game.direction.right:
+                            add_x = 1;
+                            add_y = 0;
+                            collision_obj = map.getObject(x + 1, y);
+                            break;
+                        case Game.direction.up:
+                            add_x = 0;
+                            add_y = -1;
+                            collision_obj = map.getObject(x, y - 1);
+                            break;
+                        default:
+                            break;
+                    }
+                    if (collision_obj.GetType() != typeof(NonDestroyableObjects.Puste) && collision_obj.GetType() != typeof(DestroyableObjects.Ziemia))
+                        FireBomb(map);
+                    if (collision_obj.GetType() == typeof(NonDestroyableObjects.Puste))
+                        MoveInDirection(add_x, add_y, map);
                 }
-                   if(collision_obj.GetType()==typeof(NonDestroyableObjects.Puste))
-                MoveInDirection(add_x,add_y,map);
+                else if (explode)
+                {
+                    if (current_frame == 16) { die = true; explode = false; }
+                    else
+                        src_rectangle = new Rectangle((current_frame++) * 64, 0, 64, 64);
+                    
+                }
+                else if (die)
+                {
+                    Die(map);
+                }
         
             }
          
 
         }
+
+       
+ 
+
 
         /// <summary>
         /// Reakcja na zabicie
@@ -131,8 +161,9 @@ namespace Game.Characters
         /// <param name="map"></param>
         public void FireBomb(Map.Map map)
         {
+            explode = true;
             map.AddPlayersPoints(points);
-            map.setObject(x, y, new NonDestroyableObjects.Puste(content, this.rectangle, this.x, this.y));
+            texture = content.Load<Texture2D>(explosion_animation);
 
         }
 

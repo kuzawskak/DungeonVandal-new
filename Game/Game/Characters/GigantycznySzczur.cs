@@ -98,28 +98,57 @@ namespace Game.Characters
         /// <param name="map">mapa obiektów</param>
        public void Move(Map.Map map)
         {
-            if (!(isVandalInSight(map).X == 0 && isVandalInSight(map).Y== 0)) move_frequency = 20;
-            else move_frequency = 40;
-            List<Game.direction> available_dir = new List<Game.direction>();
-            if (x > 1 && (map.getObject(x - 1, y).GetType() == typeof(NonDestroyableObjects.Puste) || map.getObject(x - 1, y).GetType() == typeof(DestroyableObjects.Ziemia)))
-                available_dir.Add(Game.direction.left);
-            if (x < map.getWidth() - 1 && (map.getObject(x + 1, y).GetType() == typeof(NonDestroyableObjects.Puste) ||  map.getObject(x + 1, y).TypeTag ==Map.ElementType.ZIEMIA))
-                available_dir.Add(Game.direction.right);
-            if (y > 1 &&( map.getObject(x, y - 1).GetType() == typeof(NonDestroyableObjects.Puste)|| map.getObject(x, y - 1).GetType() == typeof(DestroyableObjects.Ziemia)))
-                available_dir.Add(Game.direction.up);
-            if (x < map.getHeight() - 1 &&( map.getObject(x, y + 1).GetType() == typeof(NonDestroyableObjects.Puste)||map.getObject(x, y + 1).GetType()== typeof(DestroyableObjects.Ziemia)))
-                available_dir.Add(Game.direction.down);
-            if (available_dir.Capacity > 0)
+            Point p = isVandalInSight(map);
+            if ((p.X != 0 && p.Y == 0) || (p.X == 0 && p.Y != 0)) 
             {
+                //gonitwa
+                move_frequency = 40;
+                if ((this.x - map.GetVandal().x) < 0)
+                {
+                    current_direction=Game.direction.right;
+                }
+                else if ((this.x - map.GetVandal().x) > 0)
+                {
 
-                int rand_dir = rand.Next(0, available_dir.Capacity - 1);
-                current_direction = (Game.direction)(rand_dir);
-          
-            }
-            else
+                    current_direction = Game.direction.left;
+                }
+                else if ((this.y - map.GetVandal().y) > 0)
+                {
+
+                    current_direction = Game.direction.up;
+                }
+                else if ((this.y - map.GetVandal().y) < 0)
+                {
+
+                    current_direction = Game.direction.down;
+                }
+                
+
+           }
+            else//ruch losowy
             {
-         
-                current_direction = Game.direction.none;
+                move_frequency = 80;
+                List<Game.direction> available_dir = new List<Game.direction>();
+                if (x > 1 && (map.getObject(x - 1, y).GetType() == typeof(NonDestroyableObjects.Puste) || map.getObject(x - 1, y).GetType() == typeof(DestroyableObjects.Ziemia)))
+                    available_dir.Add(Game.direction.left);
+                if (x < map.getWidth() - 1 && (map.getObject(x + 1, y).GetType() == typeof(NonDestroyableObjects.Puste) || map.getObject(x + 1, y).TypeTag == Map.ElementType.ZIEMIA))
+                    available_dir.Add(Game.direction.right);
+                if (y > 1 && (map.getObject(x, y - 1).GetType() == typeof(NonDestroyableObjects.Puste) || map.getObject(x, y - 1).GetType() == typeof(DestroyableObjects.Ziemia)))
+                    available_dir.Add(Game.direction.up);
+                if (x < map.getHeight() - 1 && (map.getObject(x, y + 1).GetType() == typeof(NonDestroyableObjects.Puste) || map.getObject(x, y + 1).GetType() == typeof(DestroyableObjects.Ziemia)))
+                    available_dir.Add(Game.direction.down);
+                if (available_dir.Capacity > 0)
+                {
+
+                    int rand_dir = rand.Next(0, available_dir.Capacity - 1);
+                    current_direction = (Game.direction)(rand_dir);
+
+                }
+                else
+                {
+
+                    current_direction = Game.direction.none;
+                }
             }
         }
 

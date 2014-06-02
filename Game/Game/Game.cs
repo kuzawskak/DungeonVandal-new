@@ -73,19 +73,21 @@ namespace Game
         /// <summary>
         /// Kierunek poruszania Vandala
         /// </summary>
-        public enum direction {
+        public enum direction
+        {
             ///<summary>poruszanie w lewo</summary>
-            left, 
+            left,
             ///<summary>poruszanie w górê</summary>
             up,
             ///<summary>poruszanie w prawo</summary>
             right,
             ///<summary>poruszanie w dó³</summary>
-            down, 
+            down,
             /// <summary>
             /// nie porusza siê
             /// </summary>
-            none };
+            none
+        };
 
         /// <summary>
         /// Stan gry (czy pauza w³¹czona)
@@ -146,7 +148,7 @@ namespace Game
             Form = new MenuForm();
             Form.GamePause = false;
             isStarted = false;
-          
+
             Form.gameInstance = this;
             Form.Show();
             graphics = new GraphicsDeviceManager(this)
@@ -167,10 +169,10 @@ namespace Game
         /// Konstruktor dla nowej gry
         /// </summary>
         /// <param name="player">Instancja gracza</param>
-        public void NewGame( Player player)
+        public void NewGame(Player player)
         {
             this.player = player;
-            game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player);
+            game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player, Form.ChoosenLevel);
             music = Content.Load<Song>("Audio\\background_music");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(music);
@@ -224,7 +226,7 @@ namespace Game
             player.Rackets = 0;
             totalMinutes = 0;
             totalSeconds = 0;
-            game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player);
+            game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player, Form.ChoosenLevel);
             MediaPlayer.Resume();
             if (!player.AudioSettings.IsMuted)
                 MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
@@ -259,7 +261,7 @@ namespace Game
         /// <param name="player">Instancja gracza</param>
         /// <param name="game_state_data_to_load">Dane stany gry do ³adowania</param>
         /// <param name="data_index">Indeks danych w tablicy stanów gry</param>
-        public void SavedGame( Player player, GameState.GameStateData game_state_data_to_load, int data_index)
+        public void SavedGame(Player player, GameState.GameStateData game_state_data_to_load, int data_index)
         {
             this.player = player;
             data_to_load = game_state_data_to_load;
@@ -272,19 +274,19 @@ namespace Game
                 MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
             else MediaPlayer.Volume = 0;
             MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
-            this.data_index = data_index;       
+            this.data_index = data_index;
             this.player.Dynamite = data_to_load.Dynamites[data_index];
             this.player.Points = data_to_load.Points[data_index];
             this.player.Rackets = data_to_load.Rackets[data_index];
             totalMinutes = data_to_load.TotalMinutes[data_index];
             totalSeconds = data_to_load.TotalSeconds[data_index];
-            Form.Invoke(new Action(()=>Form.game_panel.playerName.Text = player.Name));
+            Form.Invoke(new Action(() => Form.game_panel.playerName.Text = player.Name));
             graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
             System.Windows.Forms.Control.FromHandle(Window.Handle).VisibleChanged += MainGame_VisibleChanged;
             System.Windows.Forms.Control.FromHandle(Form.Handle).KeyUp += new System.Windows.Forms.KeyEventHandler(Game_KeyUp);
             System.Windows.Forms.Control.FromHandle(Form.Handle).KeyPress += new System.Windows.Forms.KeyPressEventHandler(Game_KeyPress);
             System.Windows.Forms.Control.FromHandle(Form.Handle).KeyDown += new System.Windows.Forms.KeyEventHandler(Game_Key);
-            System.Windows.Forms.Control.FromHandle(Form.Handle).PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(Game_PreviewKeyDown);           
+            System.Windows.Forms.Control.FromHandle(Form.Handle).PreviewKeyDown += new System.Windows.Forms.PreviewKeyDownEventHandler(Game_PreviewKeyDown);
             IsMouseVisible = true;
             isStarted = true;
         }
@@ -397,8 +399,8 @@ namespace Game
         /// <param name="seconds"></param>
         void updateLabel(int minutes, int seconds)
         {
-            totalMinutes += minutes;
-            totalSeconds += seconds;
+            totalMinutes += Math.Abs(minutes);
+            totalSeconds += Math.Abs(seconds);
             Form.updateGameTime(totalMinutes, totalSeconds);
             Form.updatePoints(player.Points);
             Form.updateRacket(player.Rackets);
@@ -436,9 +438,9 @@ namespace Game
 
                     game_map = new Map.Map(tile_size, map_width, map_height, data_to_load.GameMaps[data_index], this.Content, player);
                 }
-                else
+                else //new game
                 {
-                    game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player);
+                    game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player, Form.ChoosenLevel);
                 }
 
                 music = Content.Load<Song>("Audio\\background_music");
@@ -475,16 +477,14 @@ namespace Game
 
 
                     updateLabel(gameTime.TotalGameTime.Minutes - lastUpdateMinutes, gameTime.TotalGameTime.Seconds - lastUpdateSeconds);
-
                     game_map.Update(gameTime);
-
+                    lastUpdateMinutes = gameTime.TotalGameTime.Minutes;
+                    lastUpdateSeconds = gameTime.TotalGameTime.Seconds;
 
                     if (key_pressed == System.Windows.Forms.Keys.None)
                     {
                         if (move)
                         {
-                            // if (gameTime.TotalGameTime.Milliseconds % 20 == 0)
-                            // vandal.SetFinalPosition(game_map);
                             move = false;
                             game_map.MoveVandal(direction.none);
                         }
@@ -493,33 +493,23 @@ namespace Game
 
                     else if (key_pressed == player.KeyboardSettings.Up)
                     {
-                        if (gameTime.TotalGameTime.Milliseconds % 20 == 0)
-                            game_map.MoveVandal(direction.up);
+                        game_map.MoveVandal(direction.up);
                     }
                     else if (key_pressed == player.KeyboardSettings.Down)
                     {
-
-                        if (gameTime.TotalGameTime.Milliseconds % 10 == 0)
-                            game_map.MoveVandal(direction.down);
-
+                        game_map.MoveVandal(direction.down);
                     }
                     else if (key_pressed == player.KeyboardSettings.Left)
                     {
-
-                        if (gameTime.TotalGameTime.Milliseconds % 10 == 0)
-                        {
-                            game_map.MoveVandal(direction.left);
-                        }
+                        game_map.MoveVandal(direction.left);
                     }
                     else if (key_pressed == player.KeyboardSettings.Right)
                     {
-                        if (gameTime.TotalGameTime.Milliseconds % 10 == 0)
-                            game_map.MoveVandal(direction.right);
+                        game_map.MoveVandal(direction.right);
                     }
                     else if (key_pressed == player.KeyboardSettings.Block)
                     {
-                        if (gameTime.TotalGameTime.Milliseconds % 10 == 0)
-                            game_map.GetVandal().changeDirectionToNext(game_map);
+                        game_map.GetVandal().changeDirectionToNext(game_map);
                     }
                     else if (key_pressed == player.KeyboardSettings.Dynamite)
                     {
@@ -550,27 +540,46 @@ namespace Game
                             game_map.GetVandal().AttackWithRacket(game_map);
                         else
                         {
-                            SoundEffect.MasterVolume = (float)player.AudioSettings.SoundVolume;
                             SoundEffect null_sound = Content.Load<SoundEffect>("Audio\\null_sound");
-                            null_sound.Play();
+                            if (!player.AudioSettings.IsMuted)
+                            {
+                                SoundEffect.MasterVolume = (float)player.AudioSettings.SoundVolume;
+                                null_sound.Play();
+                            }
                         }
                     }
 
 
-
-                    // vandal.LoadCurrentTexture(game_map);
 
                     if (game_map.GetVandal().level_up)
                     {
                         int current_level = game_map.gameLevel;
                         if (current_level < 5)
                         {
+                            //aktualizacja maksymalnego dopuszczalnego pzoiomu gry
+                            if (player.MaxEnabledLevel < current_level + 1)
+                            {
+                                player.MaxEnabledLevel = current_level + 1;
+                                Form.choose_level_panel.EnableTillLevel(player.MaxEnabledLevel);
+                            }
+
+                            //ustawianie poziomu inteligencji - jest ta funkcjonalnosc jest wlaczona
+                            if (player.CheckIntelligence)
+                            {
+                                if (player.Points < 500 * current_level)
+                                    player.IntelligenceLevel = 0;
+                                if (player.Points >= 500 * current_level && player.Points < 900 * current_level)
+                                    player.IntelligenceLevel = 1;
+                                else player.IntelligenceLevel = 2;
+                            }
+
+
                             game_map = new Map.Map(tile_size, map_width, map_height, this.Content, player, current_level + 1);
+
                         }
                         else
                         {
                             SaveHighScore();
-
                             Win();
                         }
                     }
@@ -583,7 +592,6 @@ namespace Game
                     game_map.GetVandal().is_alive = true;
                 }
 
-               // else
                 {
                     base.Update(gameTime);
 

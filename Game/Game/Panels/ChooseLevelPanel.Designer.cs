@@ -31,6 +31,8 @@
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(ChooseLevelPanel));
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
             this.ChooseLevelLabel = new System.Windows.Forms.Label();
+            this.poziom_trudnosci = new System.Windows.Forms.Label();
+            this.comboBox1 = new System.Windows.Forms.ComboBox();
             this.exitButton = new System.Windows.Forms.Button();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
             this.Scores5Button = new System.Windows.Forms.Button();
@@ -43,8 +45,7 @@
             this.Level4Button = new System.Windows.Forms.Button();
             this.Level5Button = new System.Windows.Forms.Button();
             this.Scores1Button = new System.Windows.Forms.Button();
-            this.comboBox1 = new System.Windows.Forms.ComboBox();
-            this.poziom_trudnosci = new System.Windows.Forms.Label();
+            this.Intelligence = new System.Windows.Forms.CheckBox();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
             this.splitContainer1.Panel2.SuspendLayout();
@@ -66,6 +67,7 @@
             // 
             // splitContainer1.Panel2
             // 
+            this.splitContainer1.Panel2.Controls.Add(this.Intelligence);
             this.splitContainer1.Panel2.Controls.Add(this.poziom_trudnosci);
             this.splitContainer1.Panel2.Controls.Add(this.comboBox1);
             this.splitContainer1.Panel2.Controls.Add(this.exitButton);
@@ -85,6 +87,33 @@
             this.ChooseLevelLabel.Size = new System.Drawing.Size(301, 46);
             this.ChooseLevelLabel.TabIndex = 0;
             this.ChooseLevelLabel.Text = "Wybierz poziom";
+            // 
+            // poziom_trudnosci
+            // 
+            this.poziom_trudnosci.AutoSize = true;
+            this.poziom_trudnosci.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.poziom_trudnosci.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
+            this.poziom_trudnosci.Location = new System.Drawing.Point(533, 128);
+            this.poziom_trudnosci.Name = "poziom_trudnosci";
+            this.poziom_trudnosci.Size = new System.Drawing.Size(255, 35);
+            this.poziom_trudnosci.TabIndex = 12;
+            this.poziom_trudnosci.Text = "Poziom trudności";
+            // 
+            // comboBox1
+            // 
+            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.comboBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.comboBox1.FormattingEnabled = true;
+            this.comboBox1.Items.AddRange(new object[] {
+            "Łatwy",
+            "Średni",
+            "Trudny"});
+            this.comboBox1.Location = new System.Drawing.Point(539, 193);
+            this.comboBox1.Name = "comboBox1";
+            this.comboBox1.Size = new System.Drawing.Size(238, 45);
+            this.comboBox1.TabIndex = 11;
+            this.comboBox1.Text = "Łatwy";
+            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
             // 
             // exitButton
             // 
@@ -271,32 +300,18 @@
             this.Scores1Button.UseVisualStyleBackColor = true;
             this.Scores1Button.Click += new System.EventHandler(this.Scores1Button_Click);
             // 
-            // comboBox1
+            // Intelligence
             // 
-            this.comboBox1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.comboBox1.Font = new System.Drawing.Font("Microsoft YaHei UI", 21.75F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.comboBox1.FormattingEnabled = true;
-            this.comboBox1.Items.AddRange(new object[] {
-            "Łatwy",
-            "Średni",
-            "Trudny"});
-            this.comboBox1.Location = new System.Drawing.Point(539, 193);
-            this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(238, 45);
-            this.comboBox1.TabIndex = 11;
-            this.comboBox1.Text = "Łatwy";
-            this.comboBox1.SelectedIndexChanged += new System.EventHandler(this.comboBox1_SelectedIndexChanged);
-            // 
-            // poziom_trudnosci
-            // 
-            this.poziom_trudnosci.AutoSize = true;
-            this.poziom_trudnosci.Font = new System.Drawing.Font("Microsoft YaHei UI", 20.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.poziom_trudnosci.ForeColor = System.Drawing.SystemColors.ButtonHighlight;
-            this.poziom_trudnosci.Location = new System.Drawing.Point(533, 128);
-            this.poziom_trudnosci.Name = "poziom_trudnosci";
-            this.poziom_trudnosci.Size = new System.Drawing.Size(255, 35);
-            this.poziom_trudnosci.TabIndex = 12;
-            this.poziom_trudnosci.Text = "Poziom trudności";
+            this.Intelligence.AutoSize = true;
+            this.Intelligence.Font = new System.Drawing.Font("Verdana", 14.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.Intelligence.ForeColor = System.Drawing.SystemColors.ControlLightLight;
+            this.Intelligence.Location = new System.Drawing.Point(522, 308);
+            this.Intelligence.Name = "Intelligence";
+            this.Intelligence.Size = new System.Drawing.Size(266, 27);
+            this.Intelligence.TabIndex = 13;
+            this.Intelligence.Text = "mierzenie inteligencji";
+            this.Intelligence.UseVisualStyleBackColor = true;
+            this.Intelligence.CheckedChanged += new System.EventHandler(this.Intelligence_CheckedChanged);
             // 
             // ChooseLevelPanel
             // 
@@ -335,5 +350,6 @@
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Label poziom_trudnosci;
         private System.Windows.Forms.ComboBox comboBox1;
+        private System.Windows.Forms.CheckBox Intelligence;
     }
 }

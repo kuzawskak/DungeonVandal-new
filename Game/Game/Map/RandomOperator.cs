@@ -85,9 +85,17 @@ namespace Game.Map
         /// </summary>
         GIGANTYCZNYSZCZUR, 
         /// <summary>
+        /// Beczka z gazem
+        /// </summary>
+        BECZKAZGAZEM,
+        /// <summary>
         /// Chodzaca Bomba
         /// </summary>
         CHODZACABOMBA,
+        /// <summary>
+        /// Niestabilna Beczka
+        /// </summary>
+        NIESTABILNABECZKA,
         /// <summary>
         /// Cel Misji
         /// </summary>
@@ -274,6 +282,18 @@ namespace Game.Map
                 }
                 catch { }
             }
+
+            //beczka z gazem 
+                pos_x = rand.Next(2, width - 2);
+                pos_y = rand.Next(2, height - 2);
+
+                Map[pos_x, pos_y] = ElementType.BECZKAZGAZEM;
+
+             //niestabilna beczka
+                pos_x = rand.Next(2, width - 2);
+                pos_y = rand.Next(2, height - 2);
+
+                Map[pos_x, pos_y] = ElementType.NIESTABILNABECZKA;
 
             //ameba 
             pos_x = rand.Next(4, width - 2);

@@ -93,8 +93,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Characters\NamespaceDoc.cs" />
+    <Compile Include="DestroyableObjects\BeczkaZGazem.cs" />
     <Compile Include="DestroyableObjects\CelMisji.cs" />
     <Compile Include="DestroyableObjects\NamespaceDoc.cs" />
+    <Compile Include="DestroyableObjects\NiestabilnaBeczka.cs" />
     <Compile Include="Features\NamespaceDoc.cs" />
     <Compile Include="Map\NamespaceDoc.cs" />
     <Compile Include="Map\RandomOperator.cs" />

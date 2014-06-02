@@ -224,6 +224,12 @@ namespace Game.Map
                     case ElementType.CELMISJI:
                         map_obj[x, y] = new DestroyableObjects.CelMisji(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y,gameLevel);
                         break;
+                    case ElementType.BECZKAZGAZEM:
+                        map_obj[x, y] = new DestroyableObjects.BeczkaZGazem(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
+                        break;
+                    case ElementType.NIESTABILNABECZKA:
+                        map_obj[x, y] = new DestroyableObjects.NiestabilnaBeczka(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
+                        break;
                     default:
                         map_obj[x, y] = new DestroyableObjects.Ziemia(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
                         break;
@@ -329,6 +335,12 @@ namespace Game.Map
                         case ElementType.CELMISJI:
                             map_obj[x, y] = new DestroyableObjects.CelMisji(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y, gameLevel);
                             break;
+                        case ElementType.BECZKAZGAZEM:
+                            map_obj[x, y] = new DestroyableObjects.BeczkaZGazem(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
+                            break;
+                        case ElementType.NIESTABILNABECZKA:
+                            map_obj[x, y] = new DestroyableObjects.NiestabilnaBeczka(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
+                            break;
                         default:
                             map_obj[x, y] = new DestroyableObjects.Ziemia(content, new Rectangle(x * tile_size, y * tile_size, tile_size, tile_size), x, y);
                             break;
@@ -387,7 +399,7 @@ namespace Game.Map
                 {
                     try
                     {
-                        spritebatch.Draw(objects[i, j].Texture, objects[i, j].rectangle, Color.White);
+                        spritebatch.Draw(objects[i, j].Texture, objects[i, j].rectangle,objects[i, j].src_rectangle, Color.White);
                     }
                     catch { }
                 }
@@ -471,7 +483,7 @@ namespace Game.Map
         /// <param name="points">liczba punktów do dodania</param>
         public void AddPlayersPoints(int points)
         {
-            player.Points += points;
+            player.Points += points * (3 - player.IntelligenceLevel);
         }
     }
 

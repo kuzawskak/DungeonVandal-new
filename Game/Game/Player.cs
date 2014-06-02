@@ -18,6 +18,17 @@ namespace Game
         public string Name {get; private set;}
 
         /// <summary>
+        /// Tryb rosnacego poziomu gry na podstawie inteligencji gracza (inteligencja wyliczana na podstawie wyników każdego poziomu)
+        /// </summary>
+        public bool CheckIntelligence { get; set; }
+
+        /// <summary>
+        /// Poziom inteligencji gracza wyliczony na podstawie ukonczonego ostatnio poziomu
+        /// 3 poziomy: 0 - niski, 1 - średni ,2 - wysoki
+        /// </summary>
+        public int IntelligenceLevel { get; set; }
+
+        /// <summary>
         /// Liczab rakiet
         /// </summary>
         public int Rackets  {get; set;}
@@ -53,11 +64,13 @@ namespace Game
         {
             KeyboardSettings = new Settings.KeySettings();
             AudioSettings = new Settings.AudioSettings();
+            this.IntelligenceLevel = 1;
             this.Name = name;
             this.Points = 0;
             this.Rackets = 0;
             this.Dynamite = 0;
             this.DifficultyLevel = 1;
+            this.CheckIntelligence = false; 
         }
 
         /// <summary>
@@ -74,10 +87,11 @@ namespace Game
         /// </summary>
         public Player()
         {
+            this.IntelligenceLevel = 1;
             KeyboardSettings = new Settings.KeySettings();
             AudioSettings = new Settings.AudioSettings();
             DifficultyLevel = 1;
-            //inicializacja wszytkich pol na 0   
+            this.CheckIntelligence = false;
         }
 
     }
