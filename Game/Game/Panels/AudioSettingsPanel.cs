@@ -27,15 +27,11 @@ namespace Game.Panels
         /// Odtwarzacz pojedynczych dźwięków w grze
         /// </summary>
         static MediaPlayer sp;
-        /// <summary>
-        /// Wątek do odtwarzania muzyki w tle
-        /// </summary>
-        static  Thread mp_thread = new Thread(MusicThreadFunc);
-        /// <summary>
-        /// Wątek do odtwarzania pojedynczych dżwięków
-        /// </summary>
-         static Thread sp_thread = new Thread(SoundThreadFunc);
 
+        /// <summary>
+        /// Czy dzwieki są wyciszone
+        /// </summary>
+        static bool is_muted;
         /// <summary>
         /// Informacja czy zakonczyć odtwarzanie muzyki
         /// </summary>
@@ -44,14 +40,8 @@ namespace Game.Panels
          /// Informacja czy zakonczyc odtwarzanie pojedynczych dzwiekow
          /// </summary>
         public static bool sound_stop = false;
-        /// <summary>
-        /// Informacja czy zmienic glosnosc muzyki
-        /// </summary>
-        public static bool music_changed = false;
-        /// <summary>
-        /// Informacja czy zmienic glosnosc pojedynczych dzwiekow
-        /// </summary>
-        public static bool sound_changed = false;
+
+
         /// <summary>
         /// Konstruktor Panelu z ustawieniami audio ( generowany z Windows Forms)
         /// </summary>
@@ -62,47 +52,27 @@ namespace Game.Panels
         }
 
         /// <summary>
-        /// Funkcja wątku odtwarzania muzyki w tle
+        /// Funkcja odtwarzania muzyki w tle
         /// </summary>
-        public static void MusicThreadFunc()
+        public static void MusicFunc()
         {
             if (!music_stop)
             {
                 mp = new MediaPlayer();
                 mp.Open(new System.Uri(Path.GetFullPath(@"background_music.wav")));
                 mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
+                if(!is_muted)
                 mp.Play();
             }
         
-            /*while (!music_stop)
-            {
-                if (music_changed)
-                {
-                    if (MuteCheckbox.Checked)
-                    {
-                        mp.Volume = 0;
-                        music_changed = false;
-                    }
-                    else
-                    {
-                      
-                            mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
-                     
-                        music_changed = false;
-                    }
-                }
-            }
-            if(mp!=null)
-            mp.Stop();
-           music_stop = false;
-             * */
+           
             
 
         }
         /// <summary>
-        /// Funkcja watku odtwarzania pojedynczych dzwiekow
+        /// Funkcja odtwarzania pojedynczych dzwiekow
         /// </summary>
-        public static void SoundThreadFunc()
+        public static void SoundFunc()
         {
 
             if (!sound_stop)
@@ -110,59 +80,35 @@ namespace Game.Panels
                 sp = new MediaPlayer();
                 sp.Open(new System.Uri(Path.GetFullPath(@"found.wav")));
                 sp.Volume = (double)musicVolTrackbar.Value / 10;
+                if(!is_muted)
                 sp.Play();
             }
             
-            //while (!sound_stop)
-            //{
-            //    if (sound_changed)
-            //    {
-            //        if (MuteCheckbox.Checked)
-            //        {
-            //            sp.Volume = 0;
-            //            sound_changed = false;
-            //        }
-            //        else
-            //        {
-            //           // sp.Open(new System.Uri(Path.GetFullPath(@"found.wav")));
-            //            sp.Volume = (double)musicVolTrackbar.Value / 10;
-            //            sp.Play();
-            //            sound_changed = false;
-            //        }
-            //    }
-            //}
-            //if (sp != null) 
-            //sp.Stop();
-            //sound_stop = false;
- 
+            
         }
         
         /// <summary>
-        /// Funkcja rozpoczynajaca dzialanie watku z muzyka w tle
+        /// Funkcja rozpoczynajaca dzialanieMediaPlayera z muzyka w tle
         /// </summary>
         public void playBackgroundMusic()
         {
-            //try
-            //{               
-            //    mp_thread.Start();
-            //}
-            //catch { }    
+
             music_stop = false;
-            MusicThreadFunc();
+            if (MuteCheckbox.Checked)
+                is_muted = true;
+            MusicFunc();
         }
 
         /// <summary>
-        /// Funkcja rozpoczynajaca dzialanie watku z pojedynczym dzwiekiem
+        /// Funkcja rozpoczynajaca działąnie MediaPlayera z pojedynczym dzwiekiem
         /// </summary>
         public void startSoundPlayer()
         {
-            //try
-            //{
-            //    sp_thread.Start();
-            //}
-            //catch { } 
+
             sound_stop = false;
-            SoundThreadFunc();
+            if (MuteCheckbox.Checked)
+                is_muted = true;
+            SoundFunc();
         }
 
         /// <summary>
@@ -171,7 +117,9 @@ namespace Game.Panels
         public void stopPlayer()
         {
             sound_stop = true;
-            music_stop = true;  
+            music_stop = true;
+            mp.Stop();
+            sp.Stop();
       
         }
 
@@ -200,17 +148,20 @@ namespace Game.Panels
         /// <param name="e"></param>
         private void MuteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-           // music_changed = true;
-           // sound_changed = true;
+
             if (MuteCheckbox.Checked)
             {
                 mp.Volume = 0;
                 sp.Volume = 0;
+                is_muted = true;
             }
             else
             {
                 mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
                 sp.Volume = (double)musicVolTrackbar.Value / 10;
+                mp.Play();
+                sp.Play();
+                is_muted = false;
             }
 
         }
@@ -233,24 +184,20 @@ namespace Game.Panels
         private void musicVolTrackbar_Scroll(object sender, EventArgs e)
         {
             sp.Volume = (double)musicVolTrackbar.Value / 10;
+            sp.Play();
         }
 
-
+        
         /// <summary>
-        /// Obluga zdarzenia wyjscia z manu suatwien dzwieku
+        /// Obluga zdarzenia wyjscia z manu ustawien dzwieku
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void button1_Click(object sender, EventArgs e)
         {
             stopPlayer();
-            mp_thread.Abort();
-            sp_thread.Abort();
-            mp_thread.Join();
-            sp_thread.Join();
-            this.Visible = false;
-           
-           
+
+            this.Visible = false;          
             ((MenuForm)Parent).player.AudioSettings.applyChanges((double)MusicVolumeTrackBar.Value / 10, (double)musicVolTrackbar.Value / 10, MuteCheckbox.Checked,((MenuForm)Parent).player.Name);
             ((MenuForm)Parent).settings_panel.Visible = true;
            

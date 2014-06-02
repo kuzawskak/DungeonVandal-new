@@ -174,7 +174,9 @@ namespace Game
             music = Content.Load<Song>("Audio\\background_music");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(music);
-            MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;         
+            if (!player.AudioSettings.IsMuted)
+                MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
+            else MediaPlayer.Volume = 0;
             Form.setPlayerName(player.Name);
             graphics.PreparingDeviceSettings += graphics_PreparingDeviceSettings;
             System.Windows.Forms.Control.FromHandle(Window.Handle).VisibleChanged += MainGame_VisibleChanged;
@@ -266,6 +268,9 @@ namespace Game
             music = Content.Load<Song>("Audio\\background_music");
             MediaPlayer.IsRepeating = true;
             MediaPlayer.Play(music);
+            if (!player.AudioSettings.IsMuted)
+                MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
+            else MediaPlayer.Volume = 0;
             MediaPlayer.Volume = (float)player.AudioSettings.MusicVolume;
             this.data_index = data_index;       
             this.player.Dynamite = data_to_load.Dynamites[data_index];
