@@ -29,9 +29,9 @@ namespace DungeonVandal
         /// wybrany poziom
         /// </summary>
         public int ChoosenLevel = 1;
-/// <summary>
-/// głowne menu gry
-/// </summary>
+        /// <summary>
+        /// głowne menu gry
+        /// </summary>
         public MainPanel main_panel = new MainPanel();
         /// <summary>
         /// menu pauzy

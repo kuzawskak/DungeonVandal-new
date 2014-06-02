@@ -10,6 +10,7 @@ using Microsoft.Xna.Framework;
 using System.Threading;
 using DungeonVandal;
 using Game.Panels;
+using System.Windows.Threading;
 
 namespace Game.Panels
 {
@@ -128,16 +129,20 @@ namespace Game.Panels
             }
             else
             {
-                form.gameInstance = new Game(form, form.player);
-                thread = new Thread(new ThreadStart(form.gameInstance.Run));
-                thread.Start();
+            
+                form.gameInstance.NewGame(form.player);
+               // thread = new Thread(new ThreadStart(form.gameInstance.Run));
+                //thread.Start();
+               // Dispatcher.CurrentDispatcher.Invoke(new Action(() =>thread =  new Thread(form.gameInstance.Run)));
+               // thread.Start();
+                
             }
             ((MenuForm)Parent).game_panel.GraphicsContainer.Focus();
         }
 
         private void MainPanel_VisibleChanged(object sender, EventArgs e)
         {
-            if (Visible == true && ((MenuForm)Parent).gameInstance != null)
+            if (Visible == true && ((MenuForm)Parent).gameInstance.isStarted)
                 ((MenuForm)Parent).GamePause = true;
         }
     }

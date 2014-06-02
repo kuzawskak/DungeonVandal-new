@@ -77,9 +77,10 @@ namespace Game.Panels
             else
             {
                 form.player = new Player(form.player.Name);
-                form.gameInstance = new Game(form, form.player, saved_data, index_in_xml);
-                Thread thread = new Thread(new ThreadStart(form.gameInstance.Run));
-                thread.Start();
+                form.gameInstance.SavedGame( form.player, saved_data, index_in_xml);
+               
+               // Thread thread = new Thread(new ThreadStart(form.gameInstance.Run));
+               // thread.Start();
             }
             ((MenuForm)Parent).game_panel.GraphicsContainer.Focus();
 
