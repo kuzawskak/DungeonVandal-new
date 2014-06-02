@@ -66,15 +66,15 @@ namespace Game.Panels
         /// </summary>
         public static void MusicThreadFunc()
         {
-            try
+            if (!music_stop)
             {
                 mp = new MediaPlayer();
                 mp.Open(new System.Uri(Path.GetFullPath(@"background_music.wav")));
                 mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
                 mp.Play();
             }
-            catch { }
-            while (!music_stop)
+        
+            /*while (!music_stop)
             {
                 if (music_changed)
                 {
@@ -85,7 +85,9 @@ namespace Game.Panels
                     }
                     else
                     {
-                        mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
+                      
+                            mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
+                     
                         music_changed = false;
                     }
                 }
@@ -93,6 +95,7 @@ namespace Game.Panels
             if(mp!=null)
             mp.Stop();
            music_stop = false;
+             * */
             
 
         }
@@ -101,37 +104,36 @@ namespace Game.Panels
         /// </summary>
         public static void SoundThreadFunc()
         {
-            try
+
+            if (!sound_stop)
             {
-           
                 sp = new MediaPlayer();
                 sp.Open(new System.Uri(Path.GetFullPath(@"found.wav")));
                 sp.Volume = (double)musicVolTrackbar.Value / 10;
                 sp.Play();
-               
             }
-            catch { }
-            while (!sound_stop)
-            {
-                if (sound_changed)
-                {
-                    if (MuteCheckbox.Checked)
-                    {
-                        sp.Volume = 0;
-                        sound_changed = false;
-                    }
-                    else
-                    {
-                        sp.Open(new System.Uri(Path.GetFullPath(@"found.wav")));
-                        sp.Volume = (double)musicVolTrackbar.Value / 10;
-                        sp.Play();
-                        sound_changed = false;
-                    }
-                }
-            }
-            if (sp != null) 
-            sp.Stop();
-            sound_stop = false;
+            
+            //while (!sound_stop)
+            //{
+            //    if (sound_changed)
+            //    {
+            //        if (MuteCheckbox.Checked)
+            //        {
+            //            sp.Volume = 0;
+            //            sound_changed = false;
+            //        }
+            //        else
+            //        {
+            //           // sp.Open(new System.Uri(Path.GetFullPath(@"found.wav")));
+            //            sp.Volume = (double)musicVolTrackbar.Value / 10;
+            //            sp.Play();
+            //            sound_changed = false;
+            //        }
+            //    }
+            //}
+            //if (sp != null) 
+            //sp.Stop();
+            //sound_stop = false;
  
         }
         
@@ -140,11 +142,13 @@ namespace Game.Panels
         /// </summary>
         public void playBackgroundMusic()
         {
-            try
-            {               
-                mp_thread.Start();
-            }
-            catch { }    
+            //try
+            //{               
+            //    mp_thread.Start();
+            //}
+            //catch { }    
+            music_stop = false;
+            MusicThreadFunc();
         }
 
         /// <summary>
@@ -152,11 +156,13 @@ namespace Game.Panels
         /// </summary>
         public void startSoundPlayer()
         {
-            try
-            {
-                sp_thread.Start();
-            }
-            catch { } 
+            //try
+            //{
+            //    sp_thread.Start();
+            //}
+            //catch { } 
+            sound_stop = false;
+            SoundThreadFunc();
         }
 
         /// <summary>
@@ -165,7 +171,8 @@ namespace Game.Panels
         public void stopPlayer()
         {
             sound_stop = true;
-            music_stop = true;        
+            music_stop = true;  
+      
         }
 
   
@@ -193,8 +200,18 @@ namespace Game.Panels
         /// <param name="e"></param>
         private void MuteCheckbox_CheckedChanged(object sender, EventArgs e)
         {
-            music_changed = true;
-            sound_changed = true;
+           // music_changed = true;
+           // sound_changed = true;
+            if (MuteCheckbox.Checked)
+            {
+                mp.Volume = 0;
+                sp.Volume = 0;
+            }
+            else
+            {
+                mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
+                sp.Volume = (double)musicVolTrackbar.Value / 10;
+            }
 
         }
 
@@ -205,7 +222,7 @@ namespace Game.Panels
         /// <param name="e"></param>
         private void MusicVolumeTrackBar_Scroll(object sender, EventArgs e)
         {
-            music_changed = true;
+            mp.Volume = (double)MusicVolumeTrackBar.Value / 10;
         }
 
         /// <summary>
@@ -215,7 +232,7 @@ namespace Game.Panels
         /// <param name="e"></param>
         private void musicVolTrackbar_Scroll(object sender, EventArgs e)
         {
-            sound_changed = true;
+            sp.Volume = (double)musicVolTrackbar.Value / 10;
         }
 
 
