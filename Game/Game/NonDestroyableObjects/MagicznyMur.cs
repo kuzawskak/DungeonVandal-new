@@ -82,7 +82,11 @@ namespace Game.NonDestroyableObjects
         private void OnTimedEvent(object source, ElapsedEventArgs e)
         {
             //zmien na eteryczny
-            texture = content.Load<Texture2D>(is_eteryczny ? asset_name : eteryczny_asset_name);            
+            try
+            {
+                texture = content.Load<Texture2D>(is_eteryczny ? asset_name : eteryczny_asset_name);
+            }
+            catch { }
             is_eteryczny = !is_eteryczny;
             IsAccesible = is_eteryczny;
             timer.Start();

@@ -578,7 +578,7 @@ namespace Game
                     game_map.GetVandal().is_alive = true;
                 }
 
-                else
+               // else
                 {
                     base.Update(gameTime);
 
